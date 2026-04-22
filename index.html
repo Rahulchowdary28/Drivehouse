@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Synchro Drivehouse | Luxury Garage Dubai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --cyan: #00f2ff; --dark: #0a0a0b; }
+        body { background-color: var(--dark); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        .font-heading { font-family: 'Orbitron', sans-serif; }
+        
+        /* Fixed Background Glows */
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.15) 0%, transparent 70%);
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        }
+
+        .glass {
+            background: rgba(15, 15, 17, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Typography Highlights */
+        .highlight-title {
+            display: block; color: white; font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .highlight-cyan { color: var(--cyan); font-weight: 600; text-shadow: 0 0 10px rgba(0, 242, 255, 0.5); }
+        .glow-text { text-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
+
+        /* Slider */
+        .slider-container {
+            position: relative; width: 100%; max-width: 900px; height: 350px;
+            margin: 0 auto; border-radius: 30px; overflow: hidden; background: #111;
+        }
+        @media (min-width: 768px) { .slider-container { height: 500px; } }
+        .image-after { background-color: #1a1a1a; width: 100%; height: 100%; background-size: cover; }
+        .image-before { 
+            position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+            border-right: 3px solid var(--cyan); z-index: 2; background-size: cover;
+        }
+        .slider-handle {
+            position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; 
+            background: var(--cyan); cursor: ew-resize; z-index: 10; transform: translateX(-50%);
+        }
+        .slider-handle::after {
+            content: '↔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: var(--cyan); color: black; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed top-0 w-full z-50 glass py-4">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center relative">
+            <div class="font-heading font-bold text-lg leading-tight">
+                SYNCHRO <br class="md:hidden"> <span style="color: var(--cyan)">DRIVEHOUSE</span>
+            </div>
+            <div class="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-8 text-[10px] uppercase tracking-[0.3em] font-semibold">
+                <a href="#home" class="hover:text-[#00f2ff]">Home</a>
+                <a href="#about" class="hover:text-[#00f2ff]">About</a>
+                <a href="#lab" class="hover:text-[#00f2ff]">The Lab</a>
+                <a href="#ev" class="hover:text-[#00f2ff]">EV Hub</a>
+                <a href="#studio" class="hover:text-[#00f2ff]">Studio</a>
+            </div>
+            <button class="bg-[#00f2ff] text-black px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">Book Now</button>
+        </div>
+    </nav>
+
+    <header id="home" class="min-h-screen flex items-center justify-center text-center px-4 relative">
+        <div class="hero-gradient"></div>
+        <div class="relative z-10">
+            <h1 class="font-heading text-4xl md:text-7xl mb-6 uppercase leading-tight">
+                SYNCHRONIZE <br> YOUR <span style="color: var(--cyan)">DRIVE.</span>
+            </h1>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="#lab" class="bg-white text-black px-8 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest">Explore Services</a>
+                <a href="#contact" class="glass px-8 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest">Find Us</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto space-y-32">
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="space-y-12">
+                <div>
+                    <h2 class="font-heading text-2xl mb-4 text-[#00f2ff]">ABOUT US</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">The Standard of Synchronization.</p> </p> At Synchro Drivehouse, we believe a vehicle is more than just a machine; it is a symphony of engineering that requires perfect synchronization. Located in the heart of Dubai, we have redefined the traditional garage experience by merging high-end mechanical expertise with world-class aesthetic restoration. </p>
+                </div>
+                <div>
+                    <h2 class="font-heading text-2xl mb-4 text-[#00f2ff]">OUR VISION</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">As the automotive world transitions from internal combustion to electric power, Synchro Drivehouse stands at the forefront of this evolution. We are built for the modern "petrolhead" and the "ev-enthusiast" alike. Whether it’s the mechanical soul of a precision-tuned European engine or the sophisticated circuitry of a Tesla, we ensure every "Synchro" vehicle performs at its absolute peak.</p>
+                </div>
+            </div>
+            <div class="glass rounded-3xl h-64 md:h-full bg-neutral-900 overflow-hidden">
+                </div>
+        </div>
+
+        <div class="glass p-8 md:p-20 rounded-[40px] relative overflow-hidden text-center">
+            <div class="hero-gradient opacity-50"></div>
+            <h2 class="font-heading text-2xl md:text-3xl mb-12 relative z-10">WHY <span class="text-[#00f2ff] glow-text">SYNCHRO DRIVEHOUSE?</span></h2>
+            <div class="max-w-3xl mx-auto space-y-12 relative z-10">
+    <div>
+        <span class="highlight-title">Expertise without Compromise</span>
+        <p class="text-gray-400 text-sm">Our workshop is equipped with 2026-grade AI diagnostics and master technicians specializing in luxury European, American, and Electric (EV) brands.</p>
+    </div>
+
+    <div>
+        <span class="highlight-title">The Detailing Lab</span>
+        <p class="text-gray-400 text-sm">We don’t just wash cars; we preserve assets. From self-healing PPF to ultra-durable ceramic coatings, our bay is designed for perfection.</p>
+    </div>
+
+    <div>
+        <span class="highlight-title">Total Transparency</span>
+        <p class="text-gray-400 text-sm">Through our digital-first approach, clients receive real-time video updates and comprehensive health reports.</p>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <section id="studio" class="py-24 px-6 text-center max-w-7xl mx-auto">
+        <h2 class="font-heading text-3xl mb-12 uppercase">THE <span class="text-[#00f2ff]">STUDIO.</span></h2>
+        <div class="slider-container" id="beforeAfterSlider">
+            <div class="image-after" style="background-image: url('./images/after.jpg')"></div>
+            <div class="image-before" style="background-image: url('./images/before.jpg')"></div>
+            <div class="slider-handle"></div>
+        </div>
+    </section>
+
+    <div class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%]">
+        <div class="glass flex justify-around items-center py-4 rounded-2xl">
+            <a href="#home" class="text-[9px] font-bold uppercase">Home</a>
+            <a href="#about" class="text-[9px] font-bold uppercase text-[#00f2ff]">About</a>
+            <a href="#lab" class="text-[9px] font-bold uppercase">Lab</a>
+            <a href="#ev" class="text-[9px] font-bold uppercase">EV</a>
+            <a href="#studio" class="text-[9px] font-bold uppercase">Studio</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.getElementById('beforeAfterSlider');
+            const beforeImg = slider.querySelector('.image-before');
+            const handle = slider.querySelector('.slider-handle');
+            const move = (e) => {
+                let x = e.pageX || (e.touches ? e.touches[0].pageX : 0);
+                let rect = slider.getBoundingClientRect();
+                let pos = ((x - rect.left) / rect.width) * 100;
+                if (pos >= 0 && pos <= 100) {
+                    beforeImg.style.width = pos + '%';
+                    handle.style.left = pos + '%';
+                }
+            };
+            slider.addEventListener('mousedown', () => window.addEventListener('mousemove', move));
+            window.addEventListener('mouseup', () => window.removeEventListener('mousemove', move));
+            slider.addEventListener('touchstart', () => window.addEventListener('touchmove', move));
+            window.addEventListener('touchend', () => window.removeEventListener('touchmove', move));
+        });
+    </script>
+</body>
+</html>
