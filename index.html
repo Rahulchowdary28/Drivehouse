@@ -3,164 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drivehouse | Tuning Our Systems</title>
+    <title>DRIVEHOUSE // SYSTEM TUNING</title>
     <style>
+        :root {
+            --neon-red: #ff1f1f;
+            --dark-carbon: #050508;
+            --glow-red: rgba(255, 31, 31, 0.45);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0b0c10;
-            /* Subtle carbon-grid pattern */
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 25px 25px;
-            color: #f1f5f9;
+        body, html {
+            background-color: var(--dark-carbon);
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            padding: 20px;
-            overflow: hidden;
         }
 
-        /* Glassmorphism Performance Card */
-        .card {
+        /* Fullscreen Interactive Canvas Matrix */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        /* Aggressive Redline Horizon Splitter */
+        .horizon-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-red), transparent);
+            top: 50%;
+            left: 0;
+            z-index: 2;
+            box-shadow: 0 0 20px 2px var(--neon-red);
+            animation: line-pulse 4s infinite ease-in-out;
+        }
+
+        /* Main UI Assembly */
+        .dashboard {
+            position: relative;
+            z-index: 3;
             text-align: center;
-            max-width: 500px;
-            background: rgba(15, 16, 22, 0.85);
-            padding: 50px 40px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 75, 75, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 75, 75, 0.03);
+            width: 100%;
+            max-width: 800px;
+            padding: 0 40px;
         }
 
-        /* Racing Red Status Badge */
-        .status-badge {
+        /* Tech Crosshair Accents */
+        .corner-bracket {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: rgba(255, 255, 255, 0.15);
+            border-style: solid;
+            pointer-events: none;
+        }
+        .tl { top: -20px; left: 10px; border-width: 1px 0 0 1px; }
+        .tr { top: -20px; right: 10px; border-width: 1px 1px 0 0; }
+        .bl { bottom: -20px; left: 10px; border-width: 0 0 1px 1px; }
+        .br { bottom: -20px; right: 10px; border-width: 0 1px 1px 0; }
+
+        /* Status telemetry */
+        .telemetry {
+            font-size: 0.75rem;
+            color: var(--neon-red);
+            font-family: monospace;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255, 75, 75, 0.1);
-            color: #ff4b4b;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 75, 75, 0.25);
+            gap: 10px;
+            text-shadow: 0 0 10px var(--glow-red);
         }
 
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #ff4b4b;
+        .live-indicator {
+            width: 6px;
+            height: 6px;
+            background-color: var(--neon-red);
             border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(255, 75, 75, 0.7);
-            animation: pitstop-pulse 1.8s infinite;
+            animation: warning-blink 0.8s infinite steps(2);
         }
 
-        @keyframes pitstop-pulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 75, 75, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 8px rgba(255, 75, 75, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(255, 75, 75, 0);
-            }
-        }
-
+        /* Branding with subtle glitch-glow */
         h1 {
-            font-size: 2.4rem;
-            color: #ffffff;
-            margin-bottom: 15px;
-            font-weight: 800;
-            letter-spacing: -0.03em;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 15px;
+            position: relative;
         }
 
         h1 span {
-            color: #ff4b4b;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
         }
 
+        h1 .suffix {
+            color: var(--neon-red);
+            -webkit-text-stroke: 0;
+            text-shadow: 0 0 15px var(--glow-red);
+        }
+
+        /* Cinematic Messaging */
         p {
-            font-size: 1.05rem;
-            color: #94a3b8;
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            color: #8a99ad;
+            max-width: 580px;
+            margin: 0 auto 35px auto;
             line-height: 1.6;
-            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 0.01em;
         }
 
-        .highlight {
+        p strong {
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        /* Sleek Redline Progress Bar */
-        .progress-bar-container {
-            width: 100%;
-            height: 4px;
+        /* Dynamic Speedometer-Inspired Load Bar */
+        .gauge-wrapper {
+            width: 220px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .gauge-track {
+            height: 2px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 2px;
-            margin: 35px 0;
+            width: 100%;
+            position: relative;
             overflow: hidden;
         }
 
-        .progress-bar-fill {
-            width: 35%;
+        .gauge-active {
+            position: absolute;
             height: 100%;
-            background: linear-gradient(90deg, #ff4b4b, #b30000);
-            border-radius: 2px;
-            animation: throttle 2.2s infinite ease-in-out;
+            width: 50%;
+            background: var(--neon-red);
+            box-shadow: 0 0 10px var(--neon-red);
+            animation: sweep 2.5s infinite linear;
         }
 
-        @keyframes throttle {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(300%); }
+        .grid-data {
+            display: flex;
+            justify-content: space-between;
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: #4a5568;
+            margin-top: 8px;
+            letter-spacing: 0.1em;
         }
 
-        .footer {
-            font-size: 0.85rem;
-            color: #475569;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-weight: 500;
+        /* Keyframe Animations */
+        @keyframes line-pulse {
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50% { opacity: 0.8; transform: scaleY(1.5); }
+        }
+
+        @keyframes warning-blink {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes sweep {
+            0% { left: -50%; }
+            100% { left: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <!-- Pit Stop Status -->
-        <div class="status-badge">
-            <span class="pulse-dot"></span>
-            Pit Stop / Upgrading Systems
+    <!-- Holographic Engine Matrix Grid -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Laser Horizon Line Separator -->
+    <div class="horizon-line"></div>
+
+    <!-- UI Dashboard -->
+    <div class="dashboard">
+        <div class="corner-bracket tl"></div>
+        <div class="corner-bracket tr"></div>
+        <div class="corner-bracket bl"></div>
+        <div class="corner-bracket br"></div>
+
+        <div class="telemetry">
+            <span class="live-indicator"></span>
+            System Diagnostics // Overhaul Mode
         </div>
         
-        <h1>Drivehouse<span>.ae</span></h1>
+        <h1>DRIVE<span>HOUSE</span><span class="suffix">.AE</span></h1>
         
-        <p>We are currently tuning our digital garage. Our team is working under the hood to deploy upgrades that will drastically <span class="highlight">enhance your user experience</span> and site performance.</p>
+        <p>We are tearing it down to the chassis. Our digital garage is currently undergoing extensive optimization to deliver an uncompromised, <strong>enhanced user experience</strong>.</p>
         
-        <!-- Redline Throttle Bar -->
-        <div class="progress-bar-container">
-            <div class="progress-bar-fill"></div>
-        </div>
-        
-        <div class="footer">
-            Back on the track shortly
+        <!-- Minimal Core Progress Array -->
+        <div class="gauge-wrapper">
+            <div class="gauge-track">
+                <div class="gauge-active"></div>
+            </div>
+            <div class="grid-data">
+                <span>RPM: OVERRIDE</span>
+                <span>SYS: 98.2%</span>
+            </div>
         </div>
     </div>
 
+    <!-- Background Tech Grid Engine -->
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Create random technical "node layout" lines behind the text
+        const lines = [];
+        for(let i = 0; i < 25; i++) {
+            lines.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                length: Math.random() * 120 + 40,
+                speed: Math.random() * 1.5 + 0.5,
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(255, 31, 31, 0.15)';
+            ctx.lineWidth = 1;
+
+            lines.forEach(line => {
+                ctx.beginPath();
+                ctx.moveTo(line.x, line.y);
+                // Draw horizontal speed line trajectories
+                ctx.lineTo(line.x + line.length, line.y);
+                ctx.stroke();
+
+                line.x += line.speed;
+                if (line.x > canvas.width) {
+                    line.x = -line.length;
+                    line.y = Math.random() * canvas.height;
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
