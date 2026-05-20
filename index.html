@@ -3,276 +3,515 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DRIVEHOUSE // SYSTEM TUNING</title>
+    <title>DriveHouse UAE | Beyond the Redline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,700;0,900;1,400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-red: #ff1f1f;
-            --dark-carbon: #050508;
-            --glow-red: rgba(255, 31, 31, 0.45);
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            user-select: none;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        body, html {
-            background-color: var(--dark-carbon);
+        body {
+            background: #060606;
             color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
+            padding: 40px 20px;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Fullscreen Interactive Canvas Matrix */
-        canvas {
+        /* Ambient supercar garage lighting trailing effect */
+        .ambient-glow {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: 
+                radial-gradient(circle at 50% 30%, rgba(255, 62, 62, 0.04) 0%, transparent 60%),
+                radial-gradient(circle at 15% 80%, rgba(255, 62, 62, 0.02) 0%, transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+            transition: background 0.1s ease;
+        }
+
+        /* Carbon fiber subtle grid texture */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(18, 18, 18, 0.15) 2px, transparent 2px),
+                              linear-gradient(90deg, rgba(18, 18, 18, 0.15) 2px, transparent 2px);
+            background-size: 30px 30px;
             z-index: 1;
-            opacity: 0.25;
+            opacity: 0.6;
             pointer-events: none;
         }
 
-        /* Aggressive Redline Horizon Splitter */
-        .horizon-line {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-red), transparent);
-            top: 50%;
-            left: 0;
-            z-index: 2;
-            box-shadow: 0 0 20px 2px var(--neon-red);
-            animation: line-pulse 4s infinite ease-in-out;
-        }
-
-        /* Main UI Assembly */
-        .dashboard {
+        header, main, footer {
             position: relative;
-            z-index: 3;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
             text-align: center;
-            width: 100%;
-            max-width: 800px;
-            padding: 0 40px;
         }
 
-        /* Tech Crosshair Accents */
-        .corner-bracket {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-color: rgba(255, 255, 255, 0.15);
-            border-style: solid;
-            pointer-events: none;
-        }
-        .tl { top: -20px; left: 10px; border-width: 1px 0 0 1px; }
-        .tr { top: -20px; right: 10px; border-width: 1px 1px 0 0; }
-        .bl { bottom: -20px; left: 10px; border-width: 0 0 1px 1px; }
-        .br { bottom: -20px; right: 10px; border-width: 0 1px 1px 0; }
-
-        /* Status telemetry */
-        .telemetry {
-            font-size: 0.75rem;
-            color: var(--neon-red);
-            font-family: monospace;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 10px var(--glow-red);
+        /* Premium Dynamic Brand Branding */
+        .logo-container {
+            display: inline-block;
+            cursor: pointer;
+            padding: 10px 20px;
         }
 
-        .live-indicator {
-            width: 6px;
-            height: 6px;
-            background-color: var(--neon-red);
-            border-radius: 50%;
-            animation: warning-blink 0.8s infinite steps(2);
-        }
-
-        /* Branding with subtle glitch-glow */
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
+        .logo {
             font-weight: 900;
-            letter-spacing: -0.05em;
+            font-size: 2.6rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            color: #ffffff;
-            line-height: 1;
-            margin-bottom: 15px;
-            position: relative;
+            color: #fff;
+            margin-bottom: 5px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: hyperGlow 1.5s ease-in-out infinite alternate;
+        }
+        
+        .logo-container:hover .logo {
+            transform: scale(1.04) translateY(-2px);
         }
 
-        h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+        .logo span {
+            color: #ff3e3e; /* Accent color: Racing Red */
         }
 
-        h1 .suffix {
-            color: var(--neon-red);
-            -webkit-text-stroke: 0;
-            text-shadow: 0 0 15px var(--glow-red);
+        .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 9px;
+            color: #444;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            margin-top: 5px;
+        }
+        
+        .logo-container:hover .tagline {
+            color: #ff3e3e;
+            letter-spacing: 11px;
+            text-shadow: 0 0 10px rgba(255, 62, 62, 0.5);
         }
 
-        /* Cinematic Messaging */
-        p {
-            font-size: clamp(0.95rem, 2vw, 1.15rem);
-            color: #8a99ad;
-            max-width: 580px;
-            margin: 0 auto 35px auto;
-            line-height: 1.6;
-            font-weight: 300;
-            letter-spacing: 0.01em;
-        }
-
-        p strong {
-            color: #ffffff;
-            font-weight: 500;
-        }
-
-        /* Dynamic Speedometer-Inspired Load Bar */
-        .gauge-wrapper {
-            width: 220px;
+        /* Main Content Box */
+        .content-wrapper {
+            max-width: 700px;
             margin: 0 auto;
-            position: relative;
         }
 
-        .gauge-track {
-            height: 2px;
-            background: rgba(255, 255, 255, 0.05);
+        .status-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            background: rgba(255, 62, 62, 0.02);
+            border: 1px solid rgba(255, 62, 62, 0.2);
+            border-radius: 30px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #ff5252;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(255, 62, 62, 0.1);
+            animation: pulse-border 2s infinite alternate;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+            background: linear-gradient(180deg, #FFFFFF 30%, #7c7c7c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #999;
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        /* FIXED GRID FOR BALANCED AUTOMOTIVE TELEMETRY */
+        .rpm-display-gauge {
+            max-width: 440px;
+            margin: 0 auto 50px auto;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 62, 62, 0.1);
+            padding: 14px 20px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+            
+            /* CSS Grid splits container into 3 strictly defined zones */
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+
+        .rpm-title {
+            font-size: 0.65rem;
+            font-family: monospace;
+            color: #555;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            text-align: left; /* Anchors status metadata to the outer left */
+        }
+
+        .rpm-value {
+            color: #ff3e3e;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 62, 62, 0.5);
+            text-align: right; /* Anchors telemetry readouts to the outer right */
+            animation: telemetryFlicker 0.15s infinite alternate;
+        }
+
+        .shift-lights {
+            display: flex;
+            gap: 5px;
+            justify-content: center; /* Locks instrument group securely in dead-center */
+            padding: 0 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 14px;
+            background: #ff3e3e;
+            border-radius: 1px;
+            transform: skewX(-15deg);
+            box-shadow: 0 0 12px rgba(255, 62, 62, 0.8);
+            animation: redlineFlicker 0.2s infinite alternate;
+        }
+        
+        /* Sequential delays for mechanical instrument vibration vibe */
+        .dot:nth-child(1) { animation-delay: 0.02s; }
+        .dot:nth-child(2) { animation-delay: 0.04s; }
+        .dot:nth-child(3) { animation-delay: 0.06s; }
+        .dot:nth-child(4) { animation-delay: 0.08s; }
+        .dot:nth-child(5) { animation-delay: 0.10s; }
+        .dot:nth-child(6) { animation-delay: 0.12s; }
+        .dot:nth-child(7) { animation-delay: 0.14s; }
+        .dot:nth-child(8) { animation-delay: 0.16s; }
+
+        /* Interactive CTA */
+        .cta-box {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 35px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+        
+        .cta-box:hover {
+            border-color: rgba(255, 62, 62, 0.15);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 30px rgba(255, 62, 62, 0.03);
+        }
+
+        .cta-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: #bbb;
+            transition: color 0.3s;
+        }
+
+        .input-group {
+            display: flex;
+            max-width: 450px;
+            margin: 0 auto;
             width: 100%;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .input-group:focus-within {
+            border-color: #ff3e3e;
+            box-shadow: 0 0 25px rgba(255, 62, 62, 0.25);
+            background: rgba(0,0,0,0.7);
+            transform: scale(1.01);
+        }
+
+        input[type="email"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 18px 24px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            letter-spacing: 0.5px;
+        }
+
+        input::placeholder {
+            color: #444;
+            transition: color 0.3s;
+        }
+        
+        input:focus::placeholder {
+            color: #666;
+        }
+
+        button {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 0 30px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .gauge-active {
-            position: absolute;
-            height: 100%;
-            width: 50%;
-            background: var(--neon-red);
-            box-shadow: 0 0 10px var(--neon-red);
-            animation: sweep 2.5s infinite linear;
+        button:hover {
+            background: #ff3e3e;
+            color: #fff;
+            box-shadow: -5px 0 20px rgba(255, 62, 62, 0.4);
         }
 
-        .grid-data {
-            display: flex;
-            justify-content: space-between;
-            font-family: monospace;
-            font-size: 0.65rem;
-            color: #4a5568;
-            margin-top: 8px;
-            letter-spacing: 0.1em;
+        button:disabled {
+            background: #1a1a1a;
+            color: #444;
+            cursor: not-allowed;
         }
 
-        /* Keyframe Animations */
-        @keyframes line-pulse {
-            0%, 100% { opacity: 0.4; transform: scaleY(1); }
-            50% { opacity: 0.8; transform: scaleY(1.5); }
+        /* Success Message styling */
+        .success-message {
+            display: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ff3e3e;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 62, 62, 0.6);
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards, pulse-glow 1.5s infinite alternate;
         }
 
-        @keyframes warning-blink {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        /* Footer Info */
+        footer p {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #333;
+            margin-top: 10px;
         }
 
-        @keyframes sweep {
-            0% { left: -50%; }
-            100% { left: 100%; }
+        .contact-fast {
+            font-size: 0.9rem;
+            color: #777;
+            transition: color 0.3s;
+        }
+
+        .contact-fast a {
+            color: #aaa;
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 62, 62, 0.3);
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-fast a:hover {
+            color: #ff3e3e;
+            border-bottom-color: #ff3e3e;
+            text-shadow: 0 0 10px rgba(255, 62, 62, 0.3);
+        }
+
+        /* Immersive Animations */
+        @keyframes hyperGlow {
+            0% {
+                text-shadow: 0 0 15px rgba(255, 62, 62, 0.4), 0 0 30px rgba(255, 62, 62, 0.1);
+            }
+            100% {
+                text-shadow: 0 0 25px rgba(255, 62, 62, 0.7), 0 0 50px rgba(255, 62, 62, 0.3);
+            }
+        }
+
+        @keyframes redlineFlicker {
+            0% { opacity: 0.6; filter: brightness(0.8); }
+            100% { opacity: 1; filter: brightness(1.3); }
+        }
+
+        @keyframes telemetryFlicker {
+            0% { opacity: 0.94; text-shadow: 0 0 8px rgba(255, 62, 62, 0.4); }
+            100% { opacity: 1; text-shadow: 0 0 14px rgba(255, 62, 62, 0.7); }
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: rgba(255, 62, 62, 0.2); box-shadow: 0 0 10px rgba(255, 62, 62, 0.05); }
+            100% { border-color: rgba(255, 62, 62, 0.4); box-shadow: 0 0 20px rgba(255, 62, 62, 0.15); }
+        }
+
+        @keyframes pulse-glow {
+            0% { opacity: 0.8; text-shadow: 0 0 15px rgba(255, 62, 62, 0.4); }
+            100% { opacity: 1; text-shadow: 0 0 25px rgba(255, 62, 62, 0.8); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1rem; }
+            .logo { font-size: 2.1rem; }
+            .rpm-display-gauge { 
+                max-width: 100%; 
+                grid-template-columns: 1fr; /* Stack instrument readout data cleanly on tiny mobile screens */
+                gap: 10px;
+            }
+            .rpm-title, .rpm-value { text-align: center; }
+            .input-group { flex-direction: column; border: none; background: transparent; gap: 12px; }
+            .input-group:focus-within { transform: none; box-shadow: none; }
+            input[type="email"] { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; width: 100%; text-align: center; padding: 16px;}
+            input[type="email"]:focus { border-color: #ff3e3e; }
+            button { border-radius: 10px; padding: 16px; width: 100%; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Holographic Engine Matrix Grid -->
-    <canvas id="matrix"></canvas>
+    <div class="ambient-glow" id="glow-panel"></div>
 
-    <!-- Laser Horizon Line Separator -->
-    <div class="horizon-line"></div>
-
-    <!-- UI Dashboard -->
-    <div class="dashboard">
-        <div class="corner-bracket tl"></div>
-        <div class="corner-bracket tr"></div>
-        <div class="corner-bracket bl"></div>
-        <div class="corner-bracket br"></div>
-
-        <div class="telemetry">
-            <span class="live-indicator"></span>
-            System Diagnostics // Overhaul Mode
+    <header>
+        <div class="logo-container">
+            <div class="logo">Drive<span>House</span></div>
+            <div class="tagline">Beyond the Redline</div>
         </div>
-        
-        <h1>DRIVE<span>HOUSE</span><span class="suffix">.AE</span></h1>
-        
-        <p>We are tearing it down to the chassis. Our digital garage is currently undergoing extensive optimization to deliver an uncompromised, <strong>enhanced user experience</strong>.</p>
-        
-        <!-- Minimal Core Progress Array -->
-        <div class="gauge-wrapper">
-            <div class="gauge-track">
-                <div class="gauge-active"></div>
+    </header>
+
+    <main>
+        <div class="content-wrapper">
+            <div class="status-badge">Diagnostics & Calibration Active</div>
+            <h1>Fine-Tuning The Digital Garage</h1>
+            <p>We are currently upgrading our online platform to mirror the precision, speed, and luxury of our workshop floor. DriveHouse Dubai is briefly offline for scheduled performance optimization.</p>
+            
+            <div class="rpm-display-gauge">
+                <span class="rpm-title">SYS_STATUS // CALIBRATING</span>
+                <div class="shift-lights">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <span class="rpm-value">7,800 RPM</span>
             </div>
-            <div class="grid-data">
-                <span>RPM: OVERRIDE</span>
-                <span>SYS: 98.2%</span>
+
+            <div class="cta-box">
+                <div class="cta-title" id="cta-header">Get Notified When We Drop The Clutch</div>
+                
+                <form id="notify-form" class="input-group">
+                    <input type="email" name="email" id="email-field" placeholder="Enter your email to get Notified" required>
+                    <button type="submit" id="submit-btn">Notify Me</button>
+                </form>
+
+                <div class="success-message" id="success-txt">
+                    ✓ Priority Line Secured. We'll notify you.
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Background Tech Grid Engine -->
+    <footer>
+        <div class="contact-fast">
+            For workshop and service inquiries: <a href="mailto:info@drivehouse.ae">info@drivehouse.ae</a>
+        </div>
+        <p>&copy; 2026 DRIVEHOUSE UAE. ALL RIGHTS RESERVED.</p>
+    </footer>
+
     <script>
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
+        const form = document.getElementById('notify-form');
+        const emailField = document.getElementById('email-field');
+        const submitBtn = document.getElementById('submit-btn');
+        const ctaHeader = document.getElementById('cta-header');
+        const successTxt = document.getElementById('success-txt');
+        const glowPanel = document.getElementById('glow-panel');
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
+        // Mouse interaction for high-end lighting tracking
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            glowPanel.style.background = `
+                radial-gradient(circle at ${x}% ${y}%, rgba(255, 62, 62, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 15% 80%, rgba(255, 62, 62, 0.02) 0%, transparent 40%)
+            `;
+        });
 
-        // Create random technical "node layout" lines behind the text
-        const lines = [];
-        for(let i = 0; i < 25; i++) {
-            lines.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                length: Math.random() * 120 + 40,
-                speed: Math.random() * 1.5 + 0.5,
-                opacity: Math.random() * 0.5 + 0.2
-            });
-        }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = "TUNING...";
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = 'rgba(255, 31, 31, 0.15)';
-            ctx.lineWidth = 1;
+            const formData = new FormData();
+            formData.append('email', emailField.value);
 
-            lines.forEach(line => {
-                ctx.beginPath();
-                ctx.moveTo(line.x, line.y);
-                // Draw horizontal speed line trajectories
-                ctx.lineTo(line.x + line.length, line.y);
-                ctx.stroke();
-
-                line.x += line.speed;
-                if (line.x > canvas.width) {
-                    line.x = -line.length;
-                    line.y = Math.random() * canvas.height;
+            fetch('https://formspree.io/f/mnjrpbdl', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
                 }
+            })
+            .then(response => {
+                if (response.ok) {
+                    form.style.opacity = '0';
+                    form.style.transform = 'translateY(-10px)';
+                    
+                    setTimeout(() => {
+                        form.style.display = 'none';
+                        ctaHeader.style.display = 'none';
+                        successTxt.style.display = 'block';
+                    }, 400);
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "RETRY";
+                    alert("An error occurred. Please try again.");
+                }
+            })
+            .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "RETRY";
+                alert("Connection lost. Please try again.");
             });
-
-            requestAnimationFrame(animate);
-        }
-        animate();
+        });
     </script>
+
 </body>
 </html>
